@@ -21,6 +21,10 @@ RUN test -f build/app.js
 RUN rm -rf frontend/node_modules frontend/.angular frontend/src/assets \
  && mkdir -p logs \
  && rm -f ftp/legal.md i18n/*.json
+# Root owns the code; the app user owns only the folders Juice Shop writes at run time.
+# COPY --from keeps this ownership, so the runtime stage needs one COPY and no duplicate layers.
+RUN chown -R 0:0 /juice-shop \
+ && chown -R 65532:0 logs ftp data i18n frontend/dist
 
 # gcr.io/distroless/nodejs24-debian13:nonroot, resolved 2026-11-16.
 FROM gcr.io/distroless/nodejs24-debian13:nonroot@sha256:6abfcb367ebc291572c774c1592a986be2ab26a2486f73093401327495a5962a
@@ -29,12 +33,7 @@ LABEL org.opencontainers.image.title="OWASP Juice Shop (hardened)" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/Keniolax/container-hardening"
 WORKDIR /juice-shop
-COPY --from=installer --chown=0:0 /juice-shop .
-COPY --from=installer --chown=65532:0 /juice-shop/logs ./logs
-COPY --from=installer --chown=65532:0 /juice-shop/ftp ./ftp
-COPY --from=installer --chown=65532:0 /juice-shop/data ./data
-COPY --from=installer --chown=65532:0 /juice-shop/i18n ./i18n
-COPY --from=installer --chown=65532:0 /juice-shop/frontend/dist ./frontend/dist
+COPY --from=installer /juice-shop .
 USER 65532:65532
 EXPOSE 3000
 CMD ["/juice-shop/build/app.js"]
