@@ -3,7 +3,7 @@
 # - npm ci installs exactly what the lockfile says, and install-time telemetry is off;
 # - the TypeScript build must produce build/app.js (upstream's postinstall hides a failed tsc);
 # - no SBOM tool is installed in the build; Syft makes the SBOM from the finished image;
-# - the app code is owned by root and read-only to the app user; only the five folders
+# - the app code is owned by root and read-only to the app user; only the seven folders
 #   Juice Shop writes at run time belong to UID 65532.
 
 # node:24-trixie, resolved 2026-11-16. Debian 13, the same release as the runtime base,
@@ -24,7 +24,7 @@ RUN rm -rf frontend/node_modules frontend/.angular frontend/src/assets \
 # Root owns the code; the app user owns only the folders Juice Shop writes at run time.
 # COPY --from keeps this ownership, so the runtime stage needs one COPY and no duplicate layers.
 RUN chown -R 0:0 /juice-shop \
- && chown -R 65532:0 logs ftp data i18n frontend/dist
+ && chown -R 65532:0 logs ftp data i18n frontend/dist .well-known uploads
 
 # gcr.io/distroless/nodejs24-debian13:nonroot, resolved 2026-11-16.
 FROM gcr.io/distroless/nodejs24-debian13:nonroot@sha256:6abfcb367ebc291572c774c1592a986be2ab26a2486f73093401327495a5962a

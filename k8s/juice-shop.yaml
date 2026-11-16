@@ -43,7 +43,7 @@ spec:
             - -e
             - >-
               const fs = require("fs");
-              for (const d of ["logs", "ftp", "data", "i18n", "frontend/dist"])
+              for (const d of ["logs", "ftp", "data", "i18n", "frontend/dist", ".well-known", "uploads"])
                 fs.cpSync("/juice-shop/" + d, "/seed/" + d, { recursive: true });
           securityContext: &locked
             allowPrivilegeEscalation: false
@@ -56,6 +56,8 @@ spec:
             - { name: data, mountPath: /seed/data }
             - { name: i18n, mountPath: /seed/i18n }
             - { name: dist, mountPath: /seed/frontend/dist }
+            - { name: wellknown, mountPath: /seed/.well-known }
+            - { name: uploads, mountPath: /seed/uploads }
       containers:
         - name: juice-shop
           image: IMAGE_REF
@@ -76,6 +78,9 @@ spec:
             - { name: data, mountPath: /juice-shop/data }
             - { name: i18n, mountPath: /juice-shop/i18n }
             - { name: dist, mountPath: /juice-shop/frontend/dist }
+            # datacreator rewrites the base URL in .well-known/csaf/provider-metadata.json
+            - { name: wellknown, mountPath: /juice-shop/.well-known }
+            - { name: uploads, mountPath: /juice-shop/uploads }
             - { name: tmp, mountPath: /tmp }
       volumes:
         - { name: logs, emptyDir: { sizeLimit: 64Mi } }
@@ -83,6 +88,8 @@ spec:
         - { name: data, emptyDir: { sizeLimit: 256Mi } }
         - { name: i18n, emptyDir: { sizeLimit: 64Mi } }
         - { name: dist, emptyDir: { sizeLimit: 256Mi } }
+        - { name: wellknown, emptyDir: { sizeLimit: 16Mi } }
+        - { name: uploads, emptyDir: { sizeLimit: 64Mi } }
         - { name: tmp, emptyDir: { sizeLimit: 64Mi } }
 ---
 apiVersion: v1
