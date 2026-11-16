@@ -1,0 +1,1 @@
+ghcr.io/keniolax/container-hardening/juice-shop@sha256:feb5992f15cfd21417a657e77cb2d22af27c06702a130fe73a47cb3058660d36

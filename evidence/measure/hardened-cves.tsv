@@ -1,0 +1,128 @@
+class	id	severity	package	installed	fixed
+lang-pkgs	CVE-2023-46233	CRITICAL	crypto-js	3.3.0	4.2.0
+lang-pkgs	CVE-2026-71851	CRITICAL	crypto-js	3.3.0	4.0.0
+lang-pkgs	CVE-2026-101894	CRITICAL	decompress	4.2.1	
+lang-pkgs	CVE-2026-53486	CRITICAL	decompress	4.2.1	
+lang-pkgs	CVE-2015-9235	CRITICAL	jsonwebtoken	0.1.0	4.2.2
+lang-pkgs	CVE-2015-9235	CRITICAL	jsonwebtoken	0.4.0	4.2.2
+lang-pkgs	CVE-2019-10744	CRITICAL	lodash	2.4.2	4.17.12
+lang-pkgs	GHSA-5mrr-rgp6-x4gr	CRITICAL	marsdb	0.6.11	
+lang-pkgs	CVE-2026-59873	CRITICAL	tar	6.2.1	7.5.19
+lang-pkgs	NSWG-ECO-428	HIGH	base64url	0.0.6	>=3.0.0
+lang-pkgs	CVE-2026-102990	HIGH	basic-ftp	5.3.1	6.2.1
+lang-pkgs	CVE-2026-118664	HIGH	decode-uri-component	0.2.2	0.5.1
+lang-pkgs	CVE-2020-15084	HIGH	express-jwt	0.1.3	6.0.0
+lang-pkgs	CVE-2022-25881	HIGH	http-cache-semantics	3.8.1	4.1.1
+lang-pkgs	CVE-2022-23539	HIGH	jsonwebtoken	0.1.0	9.0.0
+lang-pkgs	CVE-2022-23539	HIGH	jsonwebtoken	0.4.0	9.0.0
+lang-pkgs	NSWG-ECO-17	HIGH	jsonwebtoken	0.1.0	>=4.2.2
+lang-pkgs	NSWG-ECO-17	HIGH	jsonwebtoken	0.4.0	>=4.2.2
+lang-pkgs	CVE-2016-1000223	HIGH	jws	0.2.6	>=3.0.0
+lang-pkgs	CVE-2025-65945	HIGH	jws	0.2.6	3.2.3, 4.0.1
+lang-pkgs	CVE-2018-16487	HIGH	lodash	2.4.2	>=4.17.11
+lang-pkgs	CVE-2021-23337	HIGH	lodash	2.4.2	4.17.21
+lang-pkgs	CVE-2026-26996	HIGH	minimatch	3.0.5	10.2.1, 9.0.6, 8.0.5, 7.4.7, 6.2.1, 5.1.7, 4.2.4, 3.1.3
+lang-pkgs	CVE-2026-27903	HIGH	minimatch	3.0.5	10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.3
+lang-pkgs	CVE-2026-27904	HIGH	minimatch	3.0.5	10.2.3, 9.0.7, 8.0.6, 7.4.8, 6.2.2, 5.1.8, 4.2.5, 3.1.4
+lang-pkgs	CVE-2017-18214	HIGH	moment	2.0.0	2.19.3
+lang-pkgs	CVE-2022-24785	HIGH	moment	2.0.0	2.29.2
+lang-pkgs	CVE-2022-25887	HIGH	sanitize-html	1.4.2	2.7.1
+lang-pkgs	CVE-2026-23745	HIGH	tar	6.2.1	7.5.3
+lang-pkgs	CVE-2026-23950	HIGH	tar	6.2.1	7.5.4
+lang-pkgs	CVE-2026-24842	HIGH	tar	6.2.1	7.5.7
+lang-pkgs	CVE-2026-26960	HIGH	tar	6.2.1	7.5.8
+lang-pkgs	CVE-2026-29786	HIGH	tar	6.2.1	7.5.10
+lang-pkgs	CVE-2026-31802	HIGH	tar	6.2.1	7.5.11
+lang-pkgs	CVE-2026-59874	HIGH	tar	6.2.1	7.5.18
+lang-pkgs	CVE-2026-73566	HIGH	tar	6.2.1	7.5.21
+lang-pkgs	GHSA-rvg8-pwq2-xj7q	MEDIUM	base64url	0.0.6	3.0.0
+lang-pkgs	CVE-2026-126345	MEDIUM	basic-ftp	5.3.1	6.2.4
+lang-pkgs	CVE-2026-126346	MEDIUM	basic-ftp	5.3.1	6.2.3
+lang-pkgs	CVE-2026-45822	MEDIUM	decode-uri-component	0.2.2	0.5.0
+lang-pkgs	CVE-2026-10732	MEDIUM	decompress	4.2.1	
+lang-pkgs	CVE-2026-39243	MEDIUM	decompress	4.2.1	
+lang-pkgs	CVE-2026-31808	MEDIUM	file-type	16.5.4	21.3.1
+lang-pkgs	CVE-2026-118773	MEDIUM	glob	10.5.0	14.0.2
+lang-pkgs	CVE-2022-33987	MEDIUM	got	8.3.2	12.1.0, 11.8.5
+lang-pkgs	CVE-2021-32822	MEDIUM	hbs	4.4.0	
+lang-pkgs	CVE-2022-23540	MEDIUM	jsonwebtoken	0.1.0	9.0.0
+lang-pkgs	CVE-2022-23540	MEDIUM	jsonwebtoken	0.4.0	9.0.0
+lang-pkgs	CVE-2022-23541	MEDIUM	jsonwebtoken	0.1.0	9.0.0
+lang-pkgs	CVE-2022-23541	MEDIUM	jsonwebtoken	0.4.0	9.0.0
+lang-pkgs	CVE-2026-118764	MEDIUM	minimatch	9.0.9	11.0.1
+lang-pkgs	CVE-2016-4055	MEDIUM	moment	2.0.0	>=2.11.2
+lang-pkgs	CVE-2021-23771	MEDIUM	notevil	1.3.3	
+lang-pkgs	CVE-2016-1000237	MEDIUM	sanitize-html	1.4.2	>=1.4.3
+lang-pkgs	CVE-2017-16016	MEDIUM	sanitize-html	1.4.2	1.11.4
+lang-pkgs	CVE-2019-25225	MEDIUM	sanitize-html	1.4.2	2.0.0-beta
+lang-pkgs	CVE-2021-26539	MEDIUM	sanitize-html	1.4.2	2.3.1
+lang-pkgs	CVE-2021-26540	MEDIUM	sanitize-html	1.4.2	2.3.2
+lang-pkgs	CVE-2024-21501	MEDIUM	sanitize-html	1.4.2	2.12.1
+lang-pkgs	CVE-2026-113654	MEDIUM	sanitize-html	1.4.2	2.18.0
+lang-pkgs	CVE-2026-113661	MEDIUM	sanitize-html	1.4.2	2.18.0
+lang-pkgs	CVE-2026-63670	MEDIUM	sanitize-html	1.4.2	2.17.6
+lang-pkgs	NSWG-ECO-154	MEDIUM	sanitize-html	1.4.2	>=1.11.4
+lang-pkgs	CVE-2026-53655	MEDIUM	tar	6.2.1	7.5.16
+lang-pkgs	CVE-2026-59871	MEDIUM	tar	6.2.1	7.5.18
+lang-pkgs	CVE-2026-59875	MEDIUM	tar	6.2.1	7.5.17
+lang-pkgs	CVE-2026-41907	MEDIUM	uuid	8.3.2	11.1.1, 12.0.1, 13.0.1
+lang-pkgs	CVE-2026-3449	LOW	@tootallnate/once	1.1.2	3.0.1, 2.0.1
+lang-pkgs	CVE-2018-3721	LOW	lodash	2.4.2	>=4.17.5
+lang-pkgs	CVE-2025-57349	LOW	messageformat	2.3.0	3.0.0-beta.0
+os-pkgs	CVE-2026-102010	MEDIUM	gcc-14-base	14.2.0-19	
+os-pkgs	CVE-2026-114690	MEDIUM	gcc-14-base	14.2.0-19	
+os-pkgs	CVE-2026-114691	MEDIUM	gcc-14-base	14.2.0-19	
+os-pkgs	CVE-2026-115455	MEDIUM	gcc-14-base	14.2.0-19	
+os-pkgs	CVE-2026-125709	MEDIUM	gcc-14-base	14.2.0-19	
+os-pkgs	CVE-2026-95619	MEDIUM	gcc-14-base	14.2.0-19	
+os-pkgs	CVE-2026-18374	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-19499	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-19542	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-5435	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-6238	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-6368	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-6791	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-77117	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-80489	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-84243	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-8674	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-86805	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-89092	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-95818	MEDIUM	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-102010	MEDIUM	libgcc-s1	14.2.0-19	
+os-pkgs	CVE-2026-114690	MEDIUM	libgcc-s1	14.2.0-19	
+os-pkgs	CVE-2026-114691	MEDIUM	libgcc-s1	14.2.0-19	
+os-pkgs	CVE-2026-115455	MEDIUM	libgcc-s1	14.2.0-19	
+os-pkgs	CVE-2026-125709	MEDIUM	libgcc-s1	14.2.0-19	
+os-pkgs	CVE-2026-95619	MEDIUM	libgcc-s1	14.2.0-19	
+os-pkgs	CVE-2026-102010	MEDIUM	libgomp1	14.2.0-19	
+os-pkgs	CVE-2026-114690	MEDIUM	libgomp1	14.2.0-19	
+os-pkgs	CVE-2026-114691	MEDIUM	libgomp1	14.2.0-19	
+os-pkgs	CVE-2026-115455	MEDIUM	libgomp1	14.2.0-19	
+os-pkgs	CVE-2026-125709	MEDIUM	libgomp1	14.2.0-19	
+os-pkgs	CVE-2026-95619	MEDIUM	libgomp1	14.2.0-19	
+os-pkgs	CVE-2026-107496	MEDIUM	libssl3t64	3.5.7-1~deb13u3	
+os-pkgs	CVE-2026-88822	MEDIUM	libssl3t64	3.5.7-1~deb13u3	
+os-pkgs	CVE-2026-88823	MEDIUM	libssl3t64	3.5.7-1~deb13u3	
+os-pkgs	CVE-2026-95691	MEDIUM	libssl3t64	3.5.7-1~deb13u3	
+os-pkgs	CVE-2026-95692	MEDIUM	libssl3t64	3.5.7-1~deb13u3	
+os-pkgs	CVE-2026-102010	MEDIUM	libstdc++6	14.2.0-19	
+os-pkgs	CVE-2026-114690	MEDIUM	libstdc++6	14.2.0-19	
+os-pkgs	CVE-2026-114691	MEDIUM	libstdc++6	14.2.0-19	
+os-pkgs	CVE-2026-115455	MEDIUM	libstdc++6	14.2.0-19	
+os-pkgs	CVE-2026-125709	MEDIUM	libstdc++6	14.2.0-19	
+os-pkgs	CVE-2026-95619	MEDIUM	libstdc++6	14.2.0-19	
+os-pkgs	CVE-2026-115456	LOW	gcc-14-base	14.2.0-19	
+os-pkgs	CVE-2010-4756	LOW	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2018-20796	LOW	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2019-1010022	LOW	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2019-1010023	LOW	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2019-1010024	LOW	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2019-1010025	LOW	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2019-9192	LOW	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-97399	LOW	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-115456	LOW	libgcc-s1	14.2.0-19	
+os-pkgs	CVE-2026-115456	LOW	libgomp1	14.2.0-19	
+os-pkgs	CVE-2026-115456	LOW	libstdc++6	14.2.0-19	
+os-pkgs	CVE-2026-100290	UNKNOWN	libc6	2.41-12+deb13u4	
+os-pkgs	CVE-2026-115819	UNKNOWN	libc6	2.41-12+deb13u4	

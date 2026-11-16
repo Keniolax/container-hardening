@@ -1,0 +1,10 @@
+Evidence from GitHub Actions run 43823788402 (commit 983006f), 2026-11-16 UTC.
+https://github.com/Keniolax/container-hardening/actions/runs/43823788402
+Signed image: ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3
+Tools: Syft 1.55.0, Trivy 0.76.1, Cosign 3.1.4, kind 0.33.0 (kindest/node v1.37.0), kubectl 1.37.2.
+
+measure/          per-image measurements, the comparison table, every CVE in the hardened image
+sbom.spdx.json    SPDX SBOM of the signed image (also attached to it as a signed attestation)
+signing/          cosign verify output, the stored Sigstore signature bundle, its log entry
+signing/rekor.txt the two Rekor entries, read from the public log outside CI
+cluster/          cluster test log and the kubectl snapshot of the kind cluster

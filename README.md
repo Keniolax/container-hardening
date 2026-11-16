@@ -36,8 +36,9 @@ All of it runs in GitHub Actions (`.github/workflows/build.yml`).
 
 ## Results
 
-Measured in CI run [43821705627](https://github.com/Keniolax/container-hardening/actions/runs/43821705627)
-(Syft 1.55.0, Trivy 0.76.1, database of 2026-11-16):
+Measured in CI run [43823788402](https://github.com/Keniolax/container-hardening/actions/runs/43823788402)
+(Syft 1.55.0, Trivy 0.76.1, database of 2026-11-16). The run's outputs are saved in
+[`evidence/`](evidence/run.txt), because Actions logs expire.
 
 | | baseline | upstream | hardened |
 |---|---|---|---|
@@ -54,23 +55,34 @@ Measured in CI run [43821705627](https://github.com/Keniolax/container-hardening
 The gate passed `hardened` and refused the other two. Upstream fails on one check: its app
 user owns every file, so code execution in the app can rewrite `build/app.js`.
 
-The app CVEs are left as shipped. Juice Shop is vulnerable on purpose, and its challenges
-depend on those packages. Only the OS layer, which this repo chooses, is gated.
+The OS layer has 57 CVEs, none critical or high, and none with a fixed version yet. The app
+layer is left as Juice Shop ships it: 33 of its 36 critical and high CVEs have a fixed version
+([`evidence/measure/hardened-cves.tsv`](evidence/measure/hardened-cves.tsv)). They are not
+updated because this week's scope is the image, not the application, and changing Juice
+Shop's dependencies would change the target that week 14's gate was measured on. In a real
+product each one would be updated or carry its own written reason and expiry date.
 
-Signed image: `ghcr.io/keniolax/container-hardening/juice-shop@sha256:8ba647f47b5a3f0050f297c158f862975b1ec2ac6c760d58af7e78615fd89922`,
+Signed image: `ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3`,
 signer `https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/main`.
-The SBOM attestation lists 744 packages. Verification refused another repo's workflow,
-another OIDC issuer, and the same image with one label changed (`no signatures found`).
+The signature and the SBOM attestation ([`evidence/sbom.spdx.json`](evidence/sbom.spdx.json),
+744 packages) are Rekor entries 3920416251 and 3920419228. Each signing certificate was valid
+for 10 minutes (07:28:29 to 07:38:29 UTC for the signature). Both entries were read back from
+the public log outside CI ([`evidence/signing/rekor.txt`](evidence/signing/rekor.txt)).
+Verification refused another repo's workflow, another OIDC issuer, and the same image with
+one label changed (`no signatures found`). Each build gives a new digest, so each push to
+`main` signs its own image.
 
-In kind (Kubernetes 1.37, restricted Pod Security on every namespace):
+In kind (Kubernetes 1.37, restricted Pod Security on every namespace), after `make verify`
+checked the signature and the attestation ([`evidence/cluster/cluster.log`](evidence/cluster/cluster.log)):
 
 - a privileged pod running as root is refused when it is created;
 - the `client` namespace reaches Juice Shop (HTTP 200); the `outsider` namespace gets no
   connection; the Juice Shop pod cannot reach the API server or the internet;
 - with the network policies removed, `outsider` gets HTTP 200 and the pod reaches the API
   server, so the policies are what block them; re-applied, the block returns;
-- in the running pod, `sh` does not exist, writing `build/app.js` fails with `EACCES`, no
-  service account token is mounted, and the app runs as UID 65532;
+- in the running pod, `sh` does not exist; writing `build/app.js` fails with `EACCES` (root
+  owns it); writing `/home/nonroot`, which the app user owns, fails with `EROFS` (read-only
+  root); no service account token is mounted; the app runs as UID 65532;
 - an ephemeral debug container (`kubectl debug --profile=restricted`) is admitted, sees the
   Juice Shop process as PID 1, and lists its files through `/proc/1/root`.
 

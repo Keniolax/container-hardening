@@ -1,0 +1,7 @@
+Read from the public Rekor log (https://rekor.sigstore.dev) on a separate machine, 2026-11-16 UTC.
+logIndex 3920416251  uuid 108e9186e8c5677a40339ef7b8bae47ca9019ffddecf792384750efe3732d413b52b680887b4e8fa
+  integratedTime 2026-11-16T07:28:29+00:00  kind dsse 0.0.1  logID c0d23d6ad406973f9559f3ba2d1ca01f84147d8ffc5b8445c224f98b9591801d
+  certificate URI:https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/main
+logIndex 3920419228  uuid 108e9186e8c5677a9aa482a5c0455040e3e44969a2bebe38657e3b9758ccabd9e271c44c5d81d904
+  integratedTime 2026-11-16T07:28:42+00:00  kind dsse 0.0.1  logID c0d23d6ad406973f9559f3ba2d1ca01f84147d8ffc5b8445c224f98b9591801d
+  certificate URI:https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/main

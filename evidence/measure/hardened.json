@@ -1,0 +1,28 @@
+{
+  "name": "hardened",
+  "image": "local/hardened",
+  "user": "65532:65532",
+  "size_mb": 330,
+  "layers": 24,
+  "shell": false,
+  "app_code_writable_by_runtime_user": false,
+  "data_writable": true,
+  "node": "/nodejs/bin/node",
+  "packages": {
+    "binary": 1,
+    "deb": 14,
+    "npm": 728
+  },
+  "os_vulns": {
+    "total": 57,
+    "critical": 0,
+    "high": 0,
+    "fixable_critical_high": 0
+  },
+  "app_vulns": {
+    "total": 70,
+    "critical": 9,
+    "high": 27,
+    "fixable_critical_high": 33
+  }
+}

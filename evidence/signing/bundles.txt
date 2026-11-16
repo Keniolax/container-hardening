@@ -1,0 +1,15 @@
+== bundle 1 (application/vnd.dev.sigstore.bundle.v0.3+json)
+tlog: logIndex 3920416251 integratedTime 2026-11-16T07:28:29Z kind dsse/0.0.1 logId wNI9atQGlz+VWfO6LRygH4QUfY/8W4RFwiT5i5WRgB0=
+cert: issuer=O = sigstore.dev, CN = sigstore-intermediate
+cert: notBefore=Nov 16 07:28:29 2026 GMT
+cert: notAfter=Nov 16 07:38:29 2026 GMT
+cert: X509v3 Subject Alternative Name: critical
+cert:     URI:https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/main
+== bundle 2 (application/vnd.dev.sigstore.bundle.v0.3+json)
+tlog: logIndex 3920419228 integratedTime 2026-11-16T07:28:42Z kind dsse/0.0.1 logId wNI9atQGlz+VWfO6LRygH4QUfY/8W4RFwiT5i5WRgB0=
+cert: issuer=O = sigstore.dev, CN = sigstore-intermediate
+cert: notBefore=Nov 16 07:28:41 2026 GMT
+cert: notAfter=Nov 16 07:38:41 2026 GMT
+cert: X509v3 Subject Alternative Name: critical
+cert:     URI:https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/main
+found 2 bundle(s)
