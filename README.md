@@ -67,7 +67,18 @@ signer `https://github.com/Keniolax/container-hardening/.github/workflows/build.
 The signature and the SBOM attestation ([`evidence/sbom.spdx.json`](evidence/sbom.spdx.json),
 744 packages) are Rekor entries 3920416251 and 3920419228. Each signing certificate was valid
 for 10 minutes (07:28:29 to 07:38:29 UTC for the signature). Both entries were read back from
-the public log outside CI ([`evidence/signing/rekor.txt`](evidence/signing/rekor.txt)).
+the public log outside CI ([`evidence/signing/rekor.txt`](evidence/signing/rekor.txt)), and
+`cosign verify` passed on another machine with no registry login
+([`evidence/signing/outside-verify.txt`](evidence/signing/outside-verify.txt)). To check it
+yourself:
+
+```sh
+cosign verify \
+  --certificate-identity https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/main \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+  ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3
+```
+
 Verification refused another repo's workflow, another OIDC issuer, and the same image with
 one label changed (`no signatures found`). Each build gives a new digest, so each push to
 `main` signs its own image.

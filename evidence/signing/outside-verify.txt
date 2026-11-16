@@ -1,0 +1,23 @@
+cosign verify run on a separate machine (macOS, Docker), no registry login, 2026-11-16 UTC,
+after the package was made public. Cosign: ghcr.io/sigstore/cosign/cosign:v3.1.4@sha256:0f06154836d2de34f887a5c273506d52ca43edaa1d9e53e6510fa78a48f69c2d
+Image: ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3
+
+== verify (signature): exit 0
+
+Verification for ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3 --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - Existence of the claims in the transparency log was verified offline
+  - The code-signing certificate was verified using trusted certificate authority certificates
+verified bundle types: https://sigstore.dev/cosign/sign/v1, https://spdx.dev/Document
+
+== verify-attestation --type spdxjson: exit 0
+
+Verification for ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3 --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - Existence of the claims in the transparency log was verified offline
+  - The code-signing certificate was verified using trusted certificate authority certificates
+
+== verify with identity ...@refs/heads/other: exit 1 (refused)
+failed to verify certificate identity: no matching CertificateIdentity found, last error: expected SAN value "https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/other", got "https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/main"
