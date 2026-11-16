@@ -9,7 +9,11 @@ mkdir -p "$out"
 
 echo "== signature, expected signer"
 cosign verify --certificate-identity "$SIGNER" --certificate-oidc-issuer "$ISSUER" "$ref" > "$out/verify.json"
-jq -r '.[0].optional | "signed by \(.Subject // "?") issuer \(.Issuer // "?")"' "$out/verify.json" || true
+# Cosign 3 returns every verified bundle for the digest: the signature and the attestation.
+# Require the signature itself, so an attestation alone is not taken for a signature.
+jq -r '.[] | "verified \(.critical.type) for \(.critical.image."docker-manifest-digest")"' "$out/verify.json"
+jq -e 'any(.[]; .critical.type == "https://sigstore.dev/cosign/sign/v1")' "$out/verify.json" > /dev/null \
+  || { echo "FAIL  no image signature among the verified bundles"; exit 1; }
 
 echo "== SBOM attestation, expected signer"
 cosign verify-attestation --type spdxjson \

@@ -9,6 +9,12 @@ on:
 permissions:
   contents: read
 
+# GitHub's default run shell is "bash -e" without pipefail, so "make ... | tee log"
+# passes when make fails. Naming the shell turns on pipefail.
+defaults:
+  run:
+    shell: bash
+
 env:
   # Juice Shop v20.3.0 as vendored and measured in week 14.
   TARGET_REPO: Keniolax/codeguardian-target
@@ -154,6 +160,15 @@ jobs:
           GHCR_USER: ${{ github.actor }}
           GHCR_TOKEN: ${{ github.token }}
         run: make cluster test-cluster 2>&1 | tee cluster.log
+      - name: Diagnostics
+        if: failure()
+        run: |
+          kubectl -n shop get pods -o wide || true
+          kubectl -n shop describe pods | tail -60 || true
+          for p in $(kubectl -n shop get pods -o name); do
+            kubectl -n shop logs "$p" -c juice-shop --tail=80 || true
+            kubectl -n shop logs "$p" -c juice-shop --previous --tail=80 || true
+          done
       - name: Snapshot
         if: always()
         run: make snapshot > snapshot.json || true
