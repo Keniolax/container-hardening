@@ -1,0 +1,23 @@
+# A curl pod that passes "restricted". The test script creates one in "client"
+# (allowed to reach the shop) and one in "outsider" (not allowed).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: probe
+  namespace: NAMESPACE
+spec:
+  automountServiceAccountToken: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 100
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: curl
+      image: CURL_IMAGE
+      command: ["sleep", "3600"]
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: [ALL]

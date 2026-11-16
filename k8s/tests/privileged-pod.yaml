@@ -1,0 +1,14 @@
+# Must be refused by the "restricted" Pod Security Standard in namespace shop.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: privileged-test
+  namespace: shop
+spec:
+  containers:
+    - name: c
+      image: CURL_IMAGE
+      command: ["sleep", "60"]
+      securityContext:
+        privileged: true
+        runAsUser: 0

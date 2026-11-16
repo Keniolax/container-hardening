@@ -1,0 +1,30 @@
+# Deny all traffic in and out of every pod in "shop", then allow one path:
+# pods in namespaces labelled access=shop may reach Juice Shop on TCP 3000.
+# Juice Shop needs no egress at all, so none is allowed, not even DNS.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: shop
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-clients
+  namespace: shop
+spec:
+  podSelector:
+    matchLabels:
+      app: juice-shop
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              access: shop
+      ports:
+        - protocol: TCP
+          port: 3000

@@ -1,0 +1,31 @@
+# Every namespace enforces the "restricted" Pod Security Standard: the API server refuses
+# any pod that runs as root, keeps capabilities, allows privilege escalation, has no
+# seccomp profile, or uses host namespaces, host paths or privileged mode.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: shop
+  labels:
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: v1.37
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/audit: restricted
+---
+# Pods here may reach the shop (see netpol.yaml).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: client
+  labels:
+    access: shop
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: v1.37
+---
+# Pods here may not reach the shop. Used to test the network policy.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: outsider
+  labels:
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: v1.37
