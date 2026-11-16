@@ -58,7 +58,7 @@ W, H, GAP = 220, 100, 50
 COL = [60, 60 + W + GAP, 60 + 2 * (W + GAP), 60 + 3 * (W + GAP)]
 
 text(40, 24, "container-hardening: one image, hardened, signed and locked down", 28)
-text(40, 64, "Everything runs in GitHub Actions. Each control is shown working, and shown failing when removed.",
+text(40, 64, "Everything runs in GitHub Actions. Each control has a test; the gate, the signature and the network policy also have negative tests.",
      15, "#404040")
 
 # Row 1: build and measure

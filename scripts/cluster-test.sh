@@ -68,6 +68,14 @@ if k -n shop exec "$pod" -c juice-shop -- /nodejs/bin/node -e \
   fail "the app code is writable"
 fi
 pass "app code is read-only: $(grep -o 'E[A-Z]*: [^,]*' rw.err | head -1)"
+# /home/nonroot belongs to UID 65532 and is not a mounted volume, so only the read-only
+# root filesystem can stop this write. File ownership cannot.
+if k -n shop exec "$pod" -c juice-shop -- /nodejs/bin/node -e \
+     'require("fs").writeFileSync("/home/nonroot/probe", "")' > /dev/null 2> ro.err; then
+  fail "the root filesystem is writable"
+fi
+grep -q EROFS ro.err && pass "root filesystem is read-only: $(grep -o 'EROFS: [^,]*' ro.err | head -1)" \
+  || fail "write refused, but not by the read-only root: $(cat ro.err)"
 token=$(k -n shop exec "$pod" -c juice-shop -- /nodejs/bin/node -e \
   'console.log(require("fs").existsSync("/var/run/secrets/kubernetes.io/serviceaccount/token"))')
 [ "$token" = false ] && pass "no service account token mounted" || fail "token mounted"

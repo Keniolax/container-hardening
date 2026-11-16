@@ -115,6 +115,12 @@ jobs:
           REF: ${{ env.IMAGE }}@${{ steps.push.outputs.digest }}
           GH_TOKEN: ${{ github.token }}
         run: scripts/verify-signature.sh "$REF" sign
+      - name: Read the stored Sigstore bundles (log entry, certificate)
+        if: github.ref == 'refs/heads/main'
+        env:
+          REF: ${{ env.IMAGE }}@${{ steps.push.outputs.digest }}
+          GH_TOKEN: ${{ github.token }}
+        run: scripts/sigstore-bundles.sh "$REF" sign/bundles | tee sign/bundles.txt
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: github.ref == 'refs/heads/main'
         with:
@@ -154,12 +160,14 @@ jobs:
         with:
           persist-credentials: false
       - run: scripts/install-tools.sh && echo "$PWD/bin" >> "$GITHUB_PATH"
-      - name: Cluster, policies and tests
+      - name: Verify, then deploy and test
         env:
           IMAGE_REF: ${{ env.IMAGE }}@${{ needs.hardened.outputs.digest }}
           GHCR_USER: ${{ github.actor }}
           GHCR_TOKEN: ${{ github.token }}
-        run: make cluster test-cluster 2>&1 | tee cluster.log
+        run: |
+          echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
+          make verify cluster test-cluster 2>&1 | tee cluster.log
       - name: Diagnostics
         if: failure()
         run: |
@@ -172,6 +180,9 @@ jobs:
       - name: Snapshot
         if: always()
         run: make snapshot > snapshot.json || true
+      - name: Tear down
+        if: always()
+        run: make down
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
