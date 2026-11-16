@@ -33,8 +33,12 @@ fetch https://dl.k8s.io/release/v1.37.2/bin/linux/amd64/kubectl \
   c04487523e7aa7d1493f7808174c899db93d7a9cf57531420cd76b9bd415f8f4 "$TMP/kubectl"
 install "$TMP/kubectl" "$BIN/kubectl"
 
-"$BIN/syft" version | grep -m1 '^Version'
-"$BIN/cosign" version 2>&1 | grep -m1 GitVersion
-"$BIN/trivy" --version | head -1
-"$BIN/kind" version
-"$BIN/kubectl" version --client | head -1
+# Print versions. Output is captured first: piping into head under pipefail ends in SIGPIPE.
+for t in syft cosign trivy kind kubectl; do
+  case $t in
+    kubectl) v=$("$BIN/kubectl" version --client 2>&1) ;;
+    trivy) v=$("$BIN/trivy" --version 2>&1) ;;
+    *) v=$("$BIN/$t" version 2>&1) ;;
+  esac
+  echo "$t: $(grep -m1 -E 'Version|version|^v' <<<"$v")"
+done

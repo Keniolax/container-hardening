@@ -14,7 +14,7 @@ jq -r '.[0].optional | "signed by \(.Subject // "?") issuer \(.Issuer // "?")"' 
 echo "== SBOM attestation, expected signer"
 cosign verify-attestation --type spdxjson \
   --certificate-identity "$SIGNER" --certificate-oidc-issuer "$ISSUER" "$ref" > "$out/verify-attestation.json"
-jq -r '.payload' "$out/verify-attestation.json" | head -1 | base64 -d \
+jq -rs '.[0].payload' "$out/verify-attestation.json" | base64 -d \
   | jq -r '"attestation subject \(.subject[0].name)@sha256:\(.subject[0].digest.sha256), predicate \(.predicateType), \(.predicate.packages | length) packages"'
 
 must_fail() { # description command...
