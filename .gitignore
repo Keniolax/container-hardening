@@ -2,6 +2,6 @@ bin/
 out/
 sign/
 *.err
-debug.out
-cluster.log
-snapshot.json
+/debug.out
+/cluster.log
+/snapshot.json

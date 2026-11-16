@@ -1,0 +1,107 @@
+cosign verify --certificate-identity "https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/main" --certificate-oidc-issuer "https://token.actions.githubusercontent.com" "ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3" > /dev/null
+
+Verification for ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3 --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - Existence of the claims in the transparency log was verified offline
+  - The code-signing certificate was verified using trusted certificate authority certificates
+cosign verify-attestation --type spdxjson --certificate-identity "https://github.com/Keniolax/container-hardening/.github/workflows/build.yml@refs/heads/main" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com" "ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3" > /dev/null
+
+Verification for ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3 --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - Existence of the claims in the transparency log was verified offline
+  - The code-signing certificate was verified using trusted certificate authority certificates
+signature and SBOM attestation verified for ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3
+kind create cluster --config k8s/kind.yaml --wait 120s
+Creating cluster "hardening" ...
+ • Ensuring node image (kindest/node:v1.37.0) 🖼️  ...
+ ✓ Ensuring node image (kindest/node:v1.37.0) 🖼️
+ • Preparing nodes 📦   ...
+ ✓ Preparing nodes 📦 
+ • Writing configuration 📜  ...
+ ✓ Writing configuration 📜
+ • Starting control-plane 🕹️  ...
+ ✓ Starting control-plane 🕹️
+ • Installing CNI 🔌  ...
+ ✓ Installing CNI 🔌
+ • Installing StorageClass 💾  ...
+ ✓ Installing StorageClass 💾
+ • Waiting ≤ 2m0s for control-plane = Ready ⏳  ...
+ ✓ Waiting ≤ 2m0s for control-plane = Ready ⏳
+ • Ready after 18s 💚
+Set kubectl context to "kind-hardening"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-hardening
+
+Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
+kubectl apply -f k8s/namespaces.yaml
+namespace/shop created
+namespace/client created
+namespace/outsider created
+secret/ghcr created
+kubectl apply -f k8s/netpol.yaml
+networkpolicy.networking.k8s.io/default-deny created
+networkpolicy.networking.k8s.io/allow-clients created
+sed "s|IMAGE_REF|ghcr.io/keniolax/container-hardening/juice-shop@sha256:1ddc4469f1237cf3dd14ab3ce60aa138723567b7c20b9fc642ae60879a7277f3|g" k8s/juice-shop.yaml | kubectl apply -f -
+serviceaccount/juice-shop created
+deployment.apps/juice-shop created
+service/juice-shop created
+kubectl -n shop rollout status deploy/juice-shop --timeout=300s
+Waiting for deployment "juice-shop" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "juice-shop" rollout to finish: 0 of 1 updated replicas are available...
+deployment "juice-shop" successfully rolled out
+scripts/cluster-test.sh
+== Pod Security: restricted
+PASS  privileged root pod refused: privileged (container "c" must not set securityContext.privileged=true), allowPrivilegeEscalation != false (container "c" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "c" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "c" must set securityContext.runAsNonRoot=true), runAsUser=0 (container "c" must not set runAsUser=0), seccompProfile (pod or container "c" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
+== probes
+== NetworkPolicy, applied
+PASS  client namespace reaches the shop (200)
+command terminated with exit code 28
+PASS  outsider namespace gets no connection
+PASS  shop pod cannot reach the API server 10.96.0.1:443 (exit 3)
+PASS  shop pod cannot reach the internet 1.1.1.1:443 (exit 3)
+== NetworkPolicy, removed (proves the policy is what blocks)
+PASS  without the policy, outsider reaches the shop (200)
+PASS  without the policy, shop pod reaches the API server
+command terminated with exit code 28
+PASS  policy re-applied, outsider blocked again
+== the running container
+PASS  no shell: executable file not found in $PATH
+PASS  app code is read-only: EACCES: permission denied
+PASS  root filesystem is read-only: EROFS: read-only file system
+PASS  no service account token mounted
+PASS  runs as UID 65532
+== debugging without a shell in the image
+PID   USER     TIME  COMMAND
+    1 nonroot   0:01 {MainThread} /nodejs/bin/node /juice-shop/build/app.js
+  114 nonroot   0:00 sh -c ps; ls /proc/1/root/juice-shop/build | head -3
+  127 nonroot   0:00 ps
+app.js
+app.js.map
+cypress.config.js
+PASS  ephemeral debug container, admitted under restricted, sees the app's files
+== Juice Shop log (look for EROFS write errors)
+info: Required file index.html is present (SUCCESS)
+info: Required file styles.css is present (SUCCESS)
+info: Required file main.js is present (SUCCESS)
+info: Required file polyfills.js is present (SUCCESS)
+info: Required file matching /^hacking-instructor-.+\.js$/ is present (SUCCESS)
+info: Port 3000 is available (SUCCESS)
+warn: Domain https://www.alchemy.com/ is not reachable (WARNING)
+warn: "Mint the Honey Pot" challenge will not work as intended without access to https://www.alchemy.com/
+warn: "Wallet Depletion" challenge will not work as intended without access to https://www.alchemy.com/
+warn: Environment variable ALCHEMY_API_KEY is not present (WARNING)
+warn: "Mint the Honey Pot" challenge will not work as intended without a valid ALCHEMY_API_KEY
+warn: "Wallet Depletion" challenge will not work as intended without a valid ALCHEMY_API_KEY
+info: Check https://howto-web3.owasp-juice.shop for instructions on how to set up and configure the Alchemy API
+warn: Domain http://localhost:11434/v1 is not reachable (WARNING)
+warn: "Chatbot Prompt Injection" challenge will not work as intended without access to http://localhost:11434/v1
+warn: "Greedy Chatbot Manipulation" challenge will not work as intended without access to http://localhost:11434/v1
+warn: "AI Debugging" challenge will not work as intended without access to http://localhost:11434/v1
+warn: "System Prompt Extraction" challenge will not work as intended without access to http://localhost:11434/v1
+info: Check https://howto-llm.owasp-juice.shop for instructions on how to set up and configure the LLM API
+info: Server listening on port 3000
+All cluster tests passed.
